@@ -5,7 +5,7 @@
 [![Downloads Stats][npm-downloads]][npm-url]
 
 
-![](https://imgur.com/5yVfysE)
+![](https://i.imgur.com/5yVfysE.png)
 
 
 
