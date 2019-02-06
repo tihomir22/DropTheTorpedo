@@ -1,4 +1,3 @@
-# DropTheTorpedo
 
 ![](https://i.imgur.com/5yVfysE.png)
 [![NPM Version][npm-image]][npm-url]
