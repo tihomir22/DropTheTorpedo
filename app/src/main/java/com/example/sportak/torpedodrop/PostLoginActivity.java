@@ -45,14 +45,18 @@ public class PostLoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+
+
+
         reference=FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users user=dataSnapshot.getValue(Users.class);
+                System.out.println(user.getImage_url());
                 usuario.setText(user.getUsuario());
-                if(user.getImage_url().equals("default")){
+                if(user.getImage_url().equalsIgnoreCase("default")){
                     imagen_perfil.setImageResource(R.mipmap.ic_launcher);
                 }else{
                     Glide.with(PostLoginActivity.this).load(user.getImage_url()).into(imagen_perfil);
