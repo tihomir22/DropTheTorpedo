@@ -16,3 +16,4 @@
 
 ## DropTheTorpedo Progress
 * 0.0.1 : DropTheTorpedo => Iniciado proyecto, implementadas activities de registro login y su funcionabilidad, se guardan datos en firebase y tambien funciona el login
+* 0.0.2 : DropTheTorpedo => Adelantados en chats, ahora se pueden listar los usuarios , por ahora a uno mismo, funcionabilidad co nf ragments y estilos mejorados, solucion a bugs menores
