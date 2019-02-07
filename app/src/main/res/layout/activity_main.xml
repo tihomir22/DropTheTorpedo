@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@color/colorPrimaryDark"
     android:gravity="center"
     android:orientation="vertical"
     >
@@ -13,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DropTheTorpedo"
+        android:textColor="#fff"
         android:textSize="25sp"
         android:textStyle="bold"
         >
@@ -25,12 +27,16 @@
         android:layout_marginTop="100dp"
         android:id="@+id/login"
         android:text="Login"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/register"
         android:text="Registrarse"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
         />
 
 </LinearLayout>
