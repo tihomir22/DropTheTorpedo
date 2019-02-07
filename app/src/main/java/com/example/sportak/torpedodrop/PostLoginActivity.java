@@ -1,8 +1,9 @@
 package com.example.sportak.torpedodrop;
 
 import android.content.Intent;
-import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +12,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.sportak.torpedodrop.Model.Users;
+import com.example.sportak.torpedodrop.Adaptadores.ViewPagerAdaptador;
+import com.example.sportak.torpedodrop.Fragments.FragmentoChats;
+import com.example.sportak.torpedodrop.Fragments.FragmentoUsuarios;
+import com.example.sportak.torpedodrop.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,14 +39,14 @@ public class PostLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_login);
+
         imagen_perfil=findViewById(R.id.profile_image);
         usuario=findViewById(R.id.username);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
@@ -53,14 +57,33 @@ public class PostLoginActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Users user=dataSnapshot.getValue(Users.class);
-                System.out.println(user.getImage_url());
-                usuario.setText(user.getUsuario());
-                if(user.getImage_url().equalsIgnoreCase("default")){
-                    imagen_perfil.setImageResource(R.mipmap.ic_launcher);
-                }else{
-                    Glide.with(PostLoginActivity.this).load(user.getImage_url()).into(imagen_perfil);
+                User user=new User();
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    System.out.println(childSnapshot.getKey()+"\t"+
+                            childSnapshot.getValue(String.class));
+                    switch(childSnapshot.getKey().toString()){
+                        case "id":
+                            user.setId(childSnapshot.getValue(String.class));
+                            break;
+                        case "imageURL":
+                            user.setImageURL(childSnapshot.getValue(String.class));
+                            break;
+
+                        case "username":
+                            user.setUsername(childSnapshot.getValue(String.class));
+                            break;
+
+                    }
+
+
                 }
+                 usuario.setText(user.getUsername());
+                    if(user.getImageURL().equalsIgnoreCase("default")){
+                        imagen_perfil.setImageResource(R.mipmap.ic_launcher);
+                    }else{
+                        Glide.with(PostLoginActivity.this).load(user.getImageURL()).into(imagen_perfil);
+                    }
+
             }
 
             @Override
@@ -68,6 +91,17 @@ public class PostLoginActivity extends AppCompatActivity {
 
             }
         });
+
+        TabLayout tabLayout=findViewById(R.id.tab_layout);
+        ViewPager viewPager=findViewById(R.id.view_pager);
+
+        ViewPagerAdaptador viewPageradaptador=new ViewPagerAdaptador(getSupportFragmentManager());
+        viewPageradaptador.addFragment(new FragmentoChats(),"Chats");
+        viewPageradaptador.addFragment(new FragmentoUsuarios(),"Usuarios");
+
+        viewPager.setAdapter(viewPageradaptador);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 
     @Override
@@ -88,4 +122,6 @@ public class PostLoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 }

@@ -32,11 +32,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
         login=findViewById(R.id.login);
         register=findViewById(R.id.register);
 
