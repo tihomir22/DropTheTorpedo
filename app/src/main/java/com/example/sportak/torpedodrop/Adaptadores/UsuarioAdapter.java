@@ -1,6 +1,7 @@
 package com.example.sportak.torpedodrop.Adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sportak.torpedodrop.MensajeriaActivity;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
 
@@ -35,13 +37,23 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        User usuario=mUsuarios.get(i);
+        final User usuario=mUsuarios.get(i);
         viewHolder.usuario.setText(usuario.getUsername());
         if(usuario.getImageURL().equals("default")){
             viewHolder.perfil.setImageResource(R.mipmap.ic_launcher);
         }else{
             Glide.with(mcontext).load(usuario.getImageURL()).into(viewHolder.perfil);
         }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mcontext,MensajeriaActivity.class);
+                intent.putExtra("userid",usuario.getId());
+                mcontext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
