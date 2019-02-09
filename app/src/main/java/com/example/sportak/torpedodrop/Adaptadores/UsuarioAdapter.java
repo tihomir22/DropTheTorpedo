@@ -23,9 +23,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     private Context mcontext;
     private List<User>mUsuarios;
 
+
     public UsuarioAdapter(Context mcontext,List<User>mUsuarios){
         this.mcontext=mcontext;
         this.mUsuarios=mUsuarios;
+
     }
 
     @NonNull

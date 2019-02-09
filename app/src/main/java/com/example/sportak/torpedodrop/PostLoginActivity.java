@@ -60,7 +60,8 @@ public class PostLoginActivity extends AppCompatActivity {
                 User user=new User();
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     System.out.println(childSnapshot.getKey()+"\t"+
-                            childSnapshot.getValue(String.class));
+                          childSnapshot.getValue(String.class));
+
                     switch(childSnapshot.getKey().toString()){
                         case "id":
                             user.setId(childSnapshot.getValue(String.class));
@@ -76,14 +77,16 @@ public class PostLoginActivity extends AppCompatActivity {
                     }
 
 
+
                 }
-                 usuario.setText(user.getUsername());
-                    if(user.getImageURL().equalsIgnoreCase("default")){
+                if(user!=null) {
+                    usuario.setText(user.getUsername());
+                    if (user.getImageURL().equalsIgnoreCase("default")) {
                         imagen_perfil.setImageResource(R.mipmap.ic_launcher);
-                    }else{
+                    } else {
                         Glide.with(PostLoginActivity.this).load(user.getImageURL()).into(imagen_perfil);
                     }
-
+                }
             }
 
             @Override

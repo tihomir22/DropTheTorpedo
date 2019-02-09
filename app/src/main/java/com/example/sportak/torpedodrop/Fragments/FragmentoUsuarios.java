@@ -75,9 +75,9 @@ public class FragmentoUsuarios extends Fragment {
                     assert usuario!=null;
                     assert firebaseusuario!=null;
 
-                    if(usuario.getId().equals(firebaseusuario.getUid())){
+                    //if(usuario.getId().equals(firebaseusuario.getUid())){
                         aUsers.add(usuario);
-                    }
+                    //}
                     System.out.println(aUsers.size());
                 }
                 usuarioadapter=new UsuarioAdapter(getContext(),aUsers);
