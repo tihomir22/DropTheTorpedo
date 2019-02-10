@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.sportak.torpedodrop.Adaptadores.ViewPagerAdaptador;
 import com.example.sportak.torpedodrop.Fragments.FragmentoChats;
+import com.example.sportak.torpedodrop.Fragments.FragmentoProfile;
 import com.example.sportak.torpedodrop.Fragments.FragmentoUsuarios;
 import com.example.sportak.torpedodrop.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -101,6 +104,7 @@ public class PostLoginActivity extends AppCompatActivity {
         ViewPagerAdaptador viewPageradaptador=new ViewPagerAdaptador(getSupportFragmentManager());
         viewPageradaptador.addFragment(new FragmentoChats(),"Chats");
         viewPageradaptador.addFragment(new FragmentoUsuarios(),"Usuarios");
+        viewPageradaptador.addFragment(new FragmentoProfile(),"Perfil");
 
         viewPager.setAdapter(viewPageradaptador);
         tabLayout.setupWithViewPager(viewPager);
@@ -118,13 +122,32 @@ public class PostLoginActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(PostLoginActivity.this,MainActivity.class));
-                finish();
+                startActivity(new Intent(PostLoginActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
 
                 return true;
         }
         return false;
     }
 
+    //Funcion usada para guardar el estado de un usuario o actualizarlo
+    private void status(String status){
+        reference=FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("status",status);
+        reference.updateChildren(hashMap);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
 }

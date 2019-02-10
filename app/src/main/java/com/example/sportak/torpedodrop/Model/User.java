@@ -7,25 +7,27 @@ public class User implements Serializable {
     private String id;
     private String username;
     private String imageURL;
+    //indicara si esta online o offline
+    private String status;
 
 
-    public User(String id, String username, String imageURL) {
+    public User(String id, String username, String imageURL, String status) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
+        this.status = status;
     }
 
     public User(){
 
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                '}';
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
@@ -50,5 +52,15 @@ public class User implements Serializable {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

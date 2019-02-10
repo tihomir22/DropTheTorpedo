@@ -22,11 +22,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     private Context mcontext;
     private List<User>mUsuarios;
+    //para saber si nos encontramos en una pestaña donde necesitamos que salga el status
+    private boolean esChat;
 
-
-    public UsuarioAdapter(Context mcontext,List<User>mUsuarios){
+    public UsuarioAdapter(Context mcontext,List<User>mUsuarios,boolean esChat){
         this.mcontext=mcontext;
         this.mUsuarios=mUsuarios;
+        this.esChat=esChat;
 
     }
 
@@ -47,6 +49,19 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             Glide.with(mcontext).load(usuario.getImageURL()).into(viewHolder.perfil);
         }
 
+        if(esChat){
+            if(usuario.getStatus().equals("online")){
+                viewHolder.img_on.setVisibility(View.VISIBLE);
+                viewHolder.img_off.setVisibility(View.GONE);
+            }else{
+                viewHolder.img_on.setVisibility(View.GONE);
+                viewHolder.img_off.setVisibility(View.VISIBLE);
+            }
+        }else{
+            viewHolder.img_on.setVisibility(View.GONE);
+            viewHolder.img_off.setVisibility(View.GONE);
+        }
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +70,8 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
                 mcontext.startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -68,12 +85,16 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
         public TextView usuario;
         public ImageView perfil;
+        private ImageView img_on;
+        private ImageView img_off;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             usuario=itemView.findViewById(R.id.username);
             perfil  =itemView.findViewById(R.id.profile_image);
+            img_on=itemView.findViewById(R.id.img_on);
+            img_off =itemView.findViewById(R.id.img_off);
         }
     }
 

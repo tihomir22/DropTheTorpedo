@@ -86,7 +86,7 @@ public class FragmentoChats extends Fragment {
                         }
                     }
                 }
-                usuarioAdapter=new UsuarioAdapter(getContext(),mUsers);
+                usuarioAdapter=new UsuarioAdapter(getContext(),mUsers,true);
                 recyclerView.setAdapter(usuarioAdapter);
 
             }

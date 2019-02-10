@@ -44,7 +44,7 @@ public class FragmentoUsuarios extends Fragment {
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         aUsers=new ArrayList<>();
 
-        usuarioadapter=new UsuarioAdapter(getContext(),aUsers);
+        usuarioadapter=new UsuarioAdapter(getContext(),aUsers,false);
         recyclerview.setAdapter(usuarioadapter);
         leerUsuarios();
 
@@ -80,7 +80,7 @@ public class FragmentoUsuarios extends Fragment {
                     //}
                     System.out.println(aUsers.size());
                 }
-                usuarioadapter=new UsuarioAdapter(getContext(),aUsers);
+                usuarioadapter=new UsuarioAdapter(getContext(),aUsers,false);
                 recyclerview.setAdapter(usuarioadapter);
             }
 
