@@ -7,9 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.sportak.torpedodrop.Adaptadores.UsuarioAdapter;
 import com.example.sportak.torpedodrop.Model.User;
@@ -20,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ public class FragmentoUsuarios extends Fragment {
     private RecyclerView recyclerview;
     private UsuarioAdapter usuarioadapter;
     private List<User> aUsers;
+
+    EditText busqueda_usuarios;
 
 
     @Override
@@ -48,11 +54,53 @@ public class FragmentoUsuarios extends Fragment {
         recyclerview.setAdapter(usuarioadapter);
         leerUsuarios();
 
+        busqueda_usuarios=view.findViewById(R.id.search_users);
+        busqueda_usuarios.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscarUsuarios(s.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
 
         return view;
+    }
+
+    private void buscarUsuarios(String s) {
+        final FirebaseUser fuser=FirebaseAuth.getInstance().getCurrentUser();
+        Query query=FirebaseDatabase.getInstance().getReference("Users").orderByChild("search")
+                .startAt(s).endAt(s+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                aUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    if(!user.getId().equals(fuser.getUid())){
+                        aUsers.add(user);
+                    }
+                }
+                usuarioadapter=new UsuarioAdapter(getContext(),aUsers,false);
+                recyclerview.setAdapter(usuarioadapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void leerUsuarios(){
@@ -62,26 +110,26 @@ public class FragmentoUsuarios extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                aUsers.clear();
-                System.out.println("******************");
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                if(busqueda_usuarios.getText().toString().equalsIgnoreCase("")) {
+                    aUsers.clear();
+                    System.out.println("******************");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    User usuario=snapshot.getValue(User.class);
-                    System.out.println(usuario.getUsername());
+                        User usuario = snapshot.getValue(User.class);
+                        System.out.println(usuario.getUsername());
 
 
+                        assert usuario != null;
+                        assert firebaseusuario != null;
 
-
-                    assert usuario!=null;
-                    assert firebaseusuario!=null;
-
-                    //if(usuario.getId().equals(firebaseusuario.getUid())){
+                        //if(usuario.getId().equals(firebaseusuario.getUid())){
                         aUsers.add(usuario);
-                    //}
-                    System.out.println(aUsers.size());
+                        //}
+                        System.out.println(aUsers.size());
+                    }
+                    usuarioadapter = new UsuarioAdapter(getContext(), aUsers, false);
+                    recyclerview.setAdapter(usuarioadapter);
                 }
-                usuarioadapter=new UsuarioAdapter(getContext(),aUsers,false);
-                recyclerview.setAdapter(usuarioadapter);
             }
 
             @Override
