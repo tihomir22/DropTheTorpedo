@@ -76,6 +76,7 @@ public class FragmentoProfile extends Fragment {
                     image_profile.setImageResource(R.mipmap.ic_launcher);
                 }else{
                     Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
+                    System.out.println(user.getImageURL());
                 }
             }
 

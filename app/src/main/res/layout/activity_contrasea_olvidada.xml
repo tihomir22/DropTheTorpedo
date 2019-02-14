@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ContraseaOlvidadaActivity">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/bar_layout"/>
+        layout="@layout/bar_layout" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,35 +17,33 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/send_email"
-        android:inputType="textEmailAddress"
-        app:met_floatingLabel="normal"
-        android:hint="Introduzca email"
-        android:layout_marginTop="20dp" />
-
-        <Button
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/send_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reiniciar"
+            android:layout_marginTop="20dp"
+            android:hint="Introduzca email"
+            android:inputType="textEmailAddress"
+            app:met_floatingLabel="normal" />
+
+        <Button
             android:id="@+id/btn_reset"
-            android:textColor="#fff"
-            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Reiniciar"
+            android:textColor="#fff"
 
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="15dp"
-            android:textColor="#000"
+            android:gravity="center"
             android:text="Aprieta Reiniciar para recibir un email con la contraseña"
-            />
-
+            android:textColor="#000" />
 
 
     </LinearLayout>

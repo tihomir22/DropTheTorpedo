@@ -30,7 +30,26 @@
             android:name=".LoginActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MensajeriaActivity" />
-        <activity android:name=".ContraseaOlvidadaActivity"></activity>
+        <activity android:name=".ContraseaOlvidadaActivity" android:parentActivityName=".LoginActivity"></activity>
+
+        <service android:name=".Notificaciones.MyFirebaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".Notificaciones.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+
+
     </application>
 
 </manifest>

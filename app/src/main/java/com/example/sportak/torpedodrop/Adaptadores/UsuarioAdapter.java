@@ -13,8 +13,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.sportak.torpedodrop.MensajeriaActivity;
+import com.example.sportak.torpedodrop.Model.Chat;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -24,6 +34,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     private List<User>mUsuarios;
     //para saber si nos encontramos en una pestaña donde necesitamos que salga el status
     private boolean esChat;
+    String elultimomensaje;
 
     public UsuarioAdapter(Context mcontext,List<User>mUsuarios,boolean esChat){
         this.mcontext=mcontext;
@@ -48,6 +59,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
         }else{
             Glide.with(mcontext).load(usuario.getImageURL()).into(viewHolder.perfil);
         }
+
+        if(esChat){
+            ultimoMensaje(usuario.getId(),viewHolder.ultimo_msg);
+        }else{
+            viewHolder.ultimo_msg.setVisibility(View.GONE);
+        }
+
 
         if(esChat){
             if(usuario.getStatus().equals("online")){
@@ -87,6 +105,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
         public ImageView perfil;
         private ImageView img_on;
         private ImageView img_off;
+        private TextView ultimo_msg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,8 +114,43 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             perfil  =itemView.findViewById(R.id.profile_image);
             img_on=itemView.findViewById(R.id.img_on);
             img_off =itemView.findViewById(R.id.img_off);
+            ultimo_msg=itemView.findViewById(R.id.ultimo_msg);
         }
     }
 
+    //comprobar por ultimo mensaje
+    private void ultimoMensaje(final String userid, final TextView ultimo_msg){
+        this.elultimomensaje="Defecto";
+        final FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat= (Chat) snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())){
+                        elultimomensaje=chat.getMessage();
+
+                    }
+                }
+                switch (elultimomensaje){
+                    case "default":
+                        ultimo_msg.setText("No hay mensajes");
+                        break;
+                    default:
+                        ultimo_msg.setText(elultimomensaje);
+                        break;
+
+                }
+                elultimomensaje="default";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 }
