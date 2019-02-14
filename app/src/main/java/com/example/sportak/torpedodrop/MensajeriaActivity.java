@@ -48,6 +48,7 @@ public class MensajeriaActivity extends AppCompatActivity {
     RecyclerView recyclerView;
      public String userid;
 
+     ValueEventListener vistoListener;
 
     Intent intent;
 
@@ -109,10 +110,35 @@ public class MensajeriaActivity extends AppCompatActivity {
                 if(user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(MensajeriaActivity.this).load(user.getImageURL()).into(profile_image);
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile_image);
                 }
 
                 leerMensajes(fuser.getUid(),userid,user.getImageURL());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mensajeVisto(userid);
+    }
+
+
+    private void mensajeVisto(final String userid){
+        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        vistoListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat=snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)){
+                        HashMap<String,Object> hashMap=new HashMap<>();
+                        hashMap.put("visto",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
             }
 
             @Override
@@ -128,6 +154,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
         hashMap.put("message",message);
+        hashMap.put("visto",false);
         reference.child("Chats").push().setValue(hashMap);
 
         //añadir usuario a un fragment ode chat
@@ -191,6 +218,7 @@ public class MensajeriaActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        reference.removeEventListener(vistoListener);
         status("offline");
     }
 

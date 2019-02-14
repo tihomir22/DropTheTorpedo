@@ -11,6 +11,8 @@ public class User implements Serializable {
     private String status;
     //para la busqueda en el edittext
     private String search;
+    //para saber si han visto mi mensaje
+
 
 
     public User(String id, String username, String imageURL, String status,String search) {

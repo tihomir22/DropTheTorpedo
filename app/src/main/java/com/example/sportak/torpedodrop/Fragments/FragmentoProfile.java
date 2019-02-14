@@ -114,6 +114,8 @@ public class FragmentoProfile extends Fragment {
         pd.setMessage("Subiendo la imagen...");
         pd.show();
         if(imageUri!=null){
+            //referencia a modulo interno de android de almacenamiento
+
             final StorageReference refFichero=storageReference.child(System.currentTimeMillis()+getExtensionFichero(imageUri));
             uploadTask=refFichero.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot,Task<Uri>>() {
@@ -122,7 +124,6 @@ public class FragmentoProfile extends Fragment {
                     if(!task.isSuccessful()){
                         throw  task.getException();
                     }
-
                     return refFichero.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -136,7 +137,6 @@ public class FragmentoProfile extends Fragment {
                         HashMap<String,Object> map=new HashMap<>();
                         map.put("imageURL",mUri);
                         reference.updateChildren(map);
-
                         pd.dismiss();
                     }else{
                         Toast.makeText(getContext(),"Ha fallado la subida! ",Toast.LENGTH_SHORT).show();

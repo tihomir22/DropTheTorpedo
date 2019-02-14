@@ -87,7 +87,7 @@ public class PostLoginActivity extends AppCompatActivity {
                     if (user.getImageURL().equalsIgnoreCase("default")) {
                         imagen_perfil.setImageResource(R.mipmap.ic_launcher);
                     } else {
-                        Glide.with(PostLoginActivity.this).load(user.getImageURL()).into(imagen_perfil);
+                        Glide.with(getApplicationContext()).load(user.getImageURL()).into(imagen_perfil);
                     }
                 }
             }

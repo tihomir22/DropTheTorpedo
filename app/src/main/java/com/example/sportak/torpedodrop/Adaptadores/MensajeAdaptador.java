@@ -18,6 +18,8 @@ import com.example.sportak.torpedodrop.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.ViewHolder> {
@@ -59,6 +61,16 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
         }else{
             Glide.with(mcontext).load(imageurl).into(viewHolder.profile_image);
         }
+
+        if(i==mChat.size()-1){ // comprobar el ultimo mensaje
+            if(chat.isVisto()){
+                viewHolder.txt_visto.setText("Visto");
+            }else{
+                viewHolder.txt_visto.setText("Enviado");
+            }
+        }else{
+            viewHolder.txt_visto.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,12 +83,14 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
 
         public TextView show_message;
         public ImageView profile_image;
+        public TextView txt_visto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
+            txt_visto=itemView.findViewById(R.id.visto);
         }
     }
 
