@@ -16,6 +16,7 @@ import com.example.sportak.torpedodrop.Adaptadores.ViewPagerAdaptador;
 import com.example.sportak.torpedodrop.Fragments.FragmentoChats;
 import com.example.sportak.torpedodrop.Fragments.FragmentoProfile;
 import com.example.sportak.torpedodrop.Fragments.FragmentoUsuarios;
+import com.example.sportak.torpedodrop.Model.Chat;
 import com.example.sportak.torpedodrop.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -98,16 +99,46 @@ public class PostLoginActivity extends AppCompatActivity {
             }
         });
 
-        TabLayout tabLayout=findViewById(R.id.tab_layout);
-        ViewPager viewPager=findViewById(R.id.view_pager);
+        final TabLayout tabLayout=findViewById(R.id.tab_layout);
+        final ViewPager viewPager=findViewById(R.id.view_pager);
 
-        ViewPagerAdaptador viewPageradaptador=new ViewPagerAdaptador(getSupportFragmentManager());
-        viewPageradaptador.addFragment(new FragmentoChats(),"Chats");
-        viewPageradaptador.addFragment(new FragmentoUsuarios(),"Usuarios");
-        viewPageradaptador.addFragment(new FragmentoProfile(),"Perfil");
 
-        viewPager.setAdapter(viewPageradaptador);
-        tabLayout.setupWithViewPager(viewPager);
+
+        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ViewPagerAdaptador viewPageradaptador=new ViewPagerAdaptador(getSupportFragmentManager());
+                int sinLeer=0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Chat chat= snapshot.getValue(Chat.class);
+                    if(chat.getMessage().equals(firebaseUser.getUid()) && !chat.isVisto()){
+                        sinLeer++;
+                    }
+                }
+                if(sinLeer==0){
+                    viewPageradaptador.addFragment(new FragmentoChats(),"Chats");
+                }else{
+                    viewPageradaptador.addFragment(new FragmentoChats(),"("+sinLeer+") Chats");
+                }
+
+                viewPageradaptador.addFragment(new FragmentoUsuarios(),"Usuarios");
+                viewPageradaptador.addFragment(new FragmentoProfile(),"Perfil");
+
+                viewPager.setAdapter(viewPageradaptador);
+                tabLayout.setupWithViewPager(viewPager);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
     }
 

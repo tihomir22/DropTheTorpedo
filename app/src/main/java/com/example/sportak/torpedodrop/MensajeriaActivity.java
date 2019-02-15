@@ -1,6 +1,7 @@
 package com.example.sportak.torpedodrop;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,7 +79,7 @@ public class MensajeriaActivity extends AppCompatActivity {
                 startActivity(new Intent(MensajeriaActivity.this,PostLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-        apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -216,7 +217,7 @@ public class MensajeriaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher, username+": "+message, "New Message",
+                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher_round, username+": "+message, "Nuevo mensaje",
                             userid);
 
                     Sender sender = new Sender(data, token.getToken());
@@ -281,10 +282,18 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     }
 
+    private void currentUser(String userid){
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentuser", userid);
+        editor.apply();
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         status("online");
+        currentUser(userid);
     }
 
     @Override
@@ -292,6 +301,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(vistoListener);
         status("offline");
+        currentUser(userid);
     }
 
 }

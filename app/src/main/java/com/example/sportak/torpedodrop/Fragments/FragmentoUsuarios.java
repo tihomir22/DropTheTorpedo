@@ -112,13 +112,11 @@ public class FragmentoUsuarios extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(busqueda_usuarios.getText().toString().equalsIgnoreCase("")) {
                     aUsers.clear();
-                    System.out.println("******************");
+                    //System.out.println("******************");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         User usuario = snapshot.getValue(User.class);
-                        System.out.println(usuario.getUsername());
-
-
+//                        System.out.println(usuario.getUsername());
                         assert usuario != null;
                         assert firebaseusuario != null;
 

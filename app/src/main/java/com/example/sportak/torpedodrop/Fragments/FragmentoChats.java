@@ -68,14 +68,14 @@ public class FragmentoChats extends Fragment {
 
             }
         });
-        actualizarToken(FirebaseInstanceId.getInstance().getToken());
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
         return view;
     }
 
-    private void actualizarToken(String token){
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Tokens");
-        Token token1=new Token();
+    private void updateToken(String token){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
         reference.child(fuser.getUid()).setValue(token1);
     }
 
