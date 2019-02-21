@@ -1,4 +1,4 @@
-package com.example.sportak.torpedodrop.Fragments;
+package com.example.sportak.torpedodrop.Notificaciones;
 
 import com.example.sportak.torpedodrop.Notificaciones.MyResponse;
 import com.example.sportak.torpedodrop.Notificaciones.Sender;

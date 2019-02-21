@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">пуснете торпедото</string>
+    <string name="subtitle">Хайде да пуснем еднo торпедо</string>
+    <string name="drop_it">пуснете торпедото</string>
+    <string name="click_it">Кликнете, за начало</string>
+    <string name="profile">профил</string>
+    <string name="input_email">Въведете имейла си</string>
+    <string name="restart_email">Възстановете паролата</string>
+    <string name="hint_restart_email">Ще получите имейл с необходимата информация, за задаване нова парола</string>
+    <string name="desc_profile">Кликнете върху аватара си, за да изберете снимка от галерията си, тази снимка ще бъде използвана като аватар и може да бъде видяна от всички потребители на приложението</string>
+    <string name="forgotten_pass">Забравих паролата си</string>
+    <string name="create_account">Създайте нов профил</string>
+    <string name="username_register">Прякор</string>
+    <string name="search_txt">търсене …</string>
+    <string name="aut_failed">Неуспешно удостоверяване</string>
+    <string name="google_aut_failed">Неуспешно удостоверяване с Google</string>
+    <string name="empty_msg">Не можете да изпратите празно съобщение</string>
+    <string name="all_required">Всички полета са задължителни</string>
+    <string name="check_email_pass">Проверете имейла си, паролата е изпратена</string>
+    <string name="pass_six">Паролата трябва да има минимум 6 знака</string>
+    <string name="avalaible_lang">Налични езици</string>
+    <string name="detect_position">Налични езици</string>
+    <string name="seen">гледанo</string>
+    <string name="sent">пратенo</string>
+    <string name="nomsg">Няма съобщения</string>
+
+    <string name="simple_email">имейл</string>
+    <string name="simple_pass">парола</string>
+    <string name="simple_login">логин</string>
+    <string name="simple_login_google">Достъп с Google</string>
+    <string name="simple_login_btn">влезте</string>
+    <string name="simple_register">Регистрирайте се</string>
+    <string name="simple_loading">Данните се зареждат</string>
+    <string name="torpedo_loading">Изчакайте, докато подготвяме торпедите за изстрелване</string>
+    <string name="logout">изключен</string>
+
+
+    <!-- RELACIONADO CON LAS ACTIVITIES CLASS -->
+    <string name="upload_img">Качване на изображението …</string>
+    <string name="upload_failed">Качването не бе успешно! </string>
+    <string name="upload_empty">Трябва да изберете изображение!</string>
+
+    <string name="bar_layout_chats">чатове</string>
+    <string name="bar_layout_users">потребители</string>
+    <string name="bar_layout_profiles">профил</string>
+
+
+</resources>

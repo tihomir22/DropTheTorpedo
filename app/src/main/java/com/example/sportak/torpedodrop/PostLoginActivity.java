@@ -1,5 +1,6 @@
 package com.example.sportak.torpedodrop;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -38,6 +40,11 @@ public class PostLoginActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+    ProgressDialog progress;
+    Menu menuglobal;
+
+    static Boolean tasca1=false;
+    static Boolean tasca2=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,8 @@ public class PostLoginActivity extends AppCompatActivity {
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+
+        iniciarCarga();
 
 
 
@@ -91,6 +100,7 @@ public class PostLoginActivity extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(user.getImageURL()).into(imagen_perfil);
                     }
                 }
+                tasca1=true;
             }
 
             @Override
@@ -117,16 +127,18 @@ public class PostLoginActivity extends AppCompatActivity {
                     }
                 }
                 if(sinLeer==0){
-                    viewPageradaptador.addFragment(new FragmentoChats(),"Chats");
+                    viewPageradaptador.addFragment(new FragmentoChats(),ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.bar_layout_chats));
                 }else{
-                    viewPageradaptador.addFragment(new FragmentoChats(),"("+sinLeer+") Chats");
+                    viewPageradaptador.addFragment(new FragmentoChats(),"("+sinLeer+") "+ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.bar_layout_chats)+"");
                 }
 
-                viewPageradaptador.addFragment(new FragmentoUsuarios(),"Usuarios");
-                viewPageradaptador.addFragment(new FragmentoProfile(),"Perfil");
+                viewPageradaptador.addFragment(new FragmentoUsuarios(),ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.bar_layout_users));
+                viewPageradaptador.addFragment(new FragmentoProfile(),ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.bar_layout_profiles));
 
                 viewPager.setAdapter(viewPageradaptador);
                 tabLayout.setupWithViewPager(viewPager);
+
+                tasca2=true;
 
             }
 
@@ -138,14 +150,36 @@ public class PostLoginActivity extends AppCompatActivity {
         });
 
 
+        ThreadProgreso thread=new ThreadProgreso(progress);
+        thread.start();
+
+    }
+
+    private void iniciarCarga() {
+        progress = new ProgressDialog(this);
+        progress.setTitle(getString(R.string.simple_loading));
+        progress.setMessage(getString(R.string.torpedo_loading));
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+    }
 
 
+    public static synchronized boolean getTasca1(){
+        return tasca1;
+    }
+    public static synchronized boolean getTasca2(){
+        return tasca2;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
+        this.menuglobal=menu;
+        modificarTextosMenu();
         return true;
+    }
+    public void modificarTextosMenu(){
+        this.menuglobal.getItem(0).setTitle(ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.logout));
     }
 
     @Override
@@ -154,7 +188,11 @@ public class PostLoginActivity extends AppCompatActivity {
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(PostLoginActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
+                try {
+                    this.finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
 
                 return true;
         }
@@ -180,5 +218,25 @@ public class PostLoginActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         status("offline");
+    }
+}
+
+class ThreadProgreso extends Thread{
+    ProgressDialog progress;
+
+    public ThreadProgreso(ProgressDialog progress) {
+        this.progress = progress;
+    }
+
+    @Override
+    public void run(){
+        comprobarFinalizacion();
+    }
+
+    private void comprobarFinalizacion(){
+        while(!PostLoginActivity.getTasca1() || !PostLoginActivity.getTasca2()){
+            //do nothing
+        }
+        progress.dismiss();
     }
 }

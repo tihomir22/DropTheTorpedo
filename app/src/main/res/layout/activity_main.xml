@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/photo8"
     android:gravity="center"
     android:orientation="vertical"
     >
@@ -13,30 +13,55 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DropTheTorpedo"
+        android:text="@string/app_name"
         android:textColor="#fff"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        >
+        android:textSize="30sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/caja"
+        android:padding="10dp"
+        android:text="@string/subtitle"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold">
 
     </TextView>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:id="@+id/login"
-        android:text="Login"
-        android:textColor="#fff"
-        android:background="@color/colorPrimary"
-        />
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/colorAccentTransparente"
+        android:text="@string/simple_login"
+        android:textColor="#fff" />
+
+    <Button
         android:id="@+id/register"
-        android:text="Registrarse"
-        android:textColor="#fff"
-        android:background="@color/colorPrimary"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/colorAccentTransparente"
+        android:text="@string/simple_register"
+        android:textColor="#fff" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorAccentTransparente"
+        android:layout_marginRight="25dp" />
 
 </LinearLayout>

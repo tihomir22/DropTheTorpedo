@@ -75,7 +75,7 @@
             android:layout_marginEnd="7dp"
             android:layout_toStartOf="@+id/btn_send"
             android:background="@android:color/transparent"
-            android:hint="Suelta el torpedo" />
+            android:hint="@string/drop_it" />
 
         <ImageButton
             android:layout_width="40dp"

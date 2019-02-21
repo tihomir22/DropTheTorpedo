@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DROP THE TORPEDO</string>
+    <string name="subtitle">Lets go and drop a torpedo</string>
+    <string name="drop_it">Drop the torpedo</string>
+    <string name="click_it">Click here to start</string>
+    <string name="profile">Profile</string>
+    <string name="input_email">Enter your email address</string>
+    <string name="restart_email">Recover password</string>
+    <string name="hint_restart_email">You will receive an email with the needed information</string>
+    <string name="desc_profile">Click in your avatar picture to choose a new one from the gallery, this new will be displayed to everybody</string>
+    <string name="forgotten_pass">Forgotten password</string>
+    <string name="create_account">Create a new account</string>
+    <string name="username_register">Username</string>
+    <string name="search_txt">Search …</string>
+    <string name="aut_failed">Autentification failed</string>
+    <string name="google_aut_failed">Autentification with Google failed</string>
+    <string name="empty_msg">You can\'t send an empty message</string>
+    <string name="all_required">All the fields are required</string>
+    <string name="check_email_pass">Check your email, the password has been sended</string>
+    <string name="pass_six">The password has to have minimun 6 characters</string>
+    <string name="avalaible_lang">Avalaible languages</string>
+    <string name="detect_position">Detect my position</string>
+    <string name="seen">Seen</string>
+    <string name="sent">Sent</string>
+    <string name="nomsg">There are no messages</string>
+
+    <string name="simple_email">Email Address</string>
+    <string name="simple_pass">Password</string>
+    <string name="simple_login">Login</string>
+    <string name="simple_login_google">Login with google</string>
+    <string name="simple_login_btn">Access</string>
+    <string name="simple_register">Register</string>
+    <string name="simple_loading">Loading</string>
+    <string name="torpedo_loading">Wait until we set up the torpedos for the battle…</string>
+    <string name="logout">Logout</string>
+
+
+    <!-- RELACIONADO CON LAS ACTIVITIES CLASS -->
+    <string name="upload_img">Uploading the image …</string>
+    <string name="upload_failed">The upload has failed! </string>
+    <string name="upload_empty">You have to choose a picture!</string>
+
+    <string name="bar_layout_chats">Chats</string>
+    <string name="bar_layout_users">Users</string>
+    <string name="bar_layout_profiles">Profile</string>
+
+
+</resources>

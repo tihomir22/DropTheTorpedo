@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
+import com.example.sportak.torpedodrop.ResourcesLocale;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,6 +49,8 @@ public class FragmentoProfile extends Fragment {
     TextView nombreusuario;
     DatabaseReference reference;
     FirebaseUser fuser;
+    TextView txt_header;
+    TextView txt_desc;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST=1;
@@ -61,6 +64,10 @@ public class FragmentoProfile extends Fragment {
         View view= inflater.inflate(R.layout.fragment_fragmento_profile, container, false);
         image_profile=view.findViewById(R.id.profile_image);
         nombreusuario=view.findViewById(R.id.username);
+        txt_header=view.findViewById(R.id.perfil_txt);
+        txt_desc=view.findViewById(R.id.text_desc);
+        txt_header.setText(ResourcesLocale.getResoruces(this.getContext()).getString(R.string.profile));
+        txt_desc.setText(ResourcesLocale.getResoruces(this.getContext()).getString(R.string.desc_profile));
 
         fuser=FirebaseAuth.getInstance().getCurrentUser();
         reference=FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
@@ -75,6 +82,9 @@ public class FragmentoProfile extends Fragment {
                 if(user.getImageURL().equals("default")){
                     image_profile.setImageResource(R.mipmap.ic_launcher);
                 }else{
+                    if (getActivity() == null) {
+                        return;
+                    }
                     Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
                     System.out.println(user.getImageURL());
                 }
@@ -112,11 +122,10 @@ public class FragmentoProfile extends Fragment {
 
     private void subirImagen(){
         final ProgressDialog pd=new ProgressDialog(getContext());
-        pd.setMessage("Subiendo la imagen...");
+        pd.setMessage(ResourcesLocale.getResoruces(this.getContext()).getString(R.string.upload_img));
         pd.show();
         if(imageUri!=null){
             //referencia a modulo interno de android de almacenamiento
-
             final StorageReference refFichero=storageReference.child(System.currentTimeMillis()+getExtensionFichero(imageUri));
             uploadTask=refFichero.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot,Task<Uri>>() {
@@ -140,7 +149,7 @@ public class FragmentoProfile extends Fragment {
                         reference.updateChildren(map);
                         pd.dismiss();
                     }else{
-                        Toast.makeText(getContext(),"Ha fallado la subida! ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),ResourcesLocale.getResoruces(getContext()).getString(R.string.upload_failed),Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                     }
                 }
@@ -152,7 +161,7 @@ public class FragmentoProfile extends Fragment {
                 }
             });
         }else{
-         Toast.makeText(getContext(),"No hay imagen seleccionada",Toast.LENGTH_SHORT).show();
+         Toast.makeText(getContext(),ResourcesLocale.getResoruces(getContext()).getString(R.string.upload_empty),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -162,7 +171,7 @@ public class FragmentoProfile extends Fragment {
         if(requestCode==IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imageUri=data.getData();
             if(uploadTask!=null && uploadTask.isInProgress()){
-                Toast.makeText(getContext(),"Subida en progreso",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),ResourcesLocale.getResoruces(getContext()).getString(R.string.upload_empty),Toast.LENGTH_SHORT).show();
             }else{
                 subirImagen();
             }

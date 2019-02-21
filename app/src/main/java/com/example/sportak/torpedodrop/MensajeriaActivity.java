@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sportak.torpedodrop.Adaptadores.MensajeAdaptador;
-import com.example.sportak.torpedodrop.Fragments.APIService;
+import com.example.sportak.torpedodrop.Notificaciones.APIService;
 import com.example.sportak.torpedodrop.Model.Chat;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.Notificaciones.Client;
@@ -91,6 +91,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         username=findViewById(R.id.username);
         btn_send=findViewById(R.id.btn_send);
         text_send=findViewById(R.id.text_send);
+        text_send.setHint(ResourcesLocale.getResoruces(this).getString(R.string.drop_it));
 
 
         intent=getIntent();
@@ -105,7 +106,7 @@ public class MensajeriaActivity extends AppCompatActivity {
                 if(!msg.equalsIgnoreCase("")){
                     enviarMensaje(fuser.getUid(),userid,msg);
                 }else{
-                    Toast.makeText(MensajeriaActivity.this,"No puedes enviar un mensaje vacio",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MensajeriaActivity.this,ResourcesLocale.getResoruces(MensajeriaActivity.this).getString(R.string.empty_msg),Toast.LENGTH_SHORT).show();
                 }
                 text_send.setText("");
 
@@ -187,15 +188,12 @@ public class MensajeriaActivity extends AppCompatActivity {
         });
 
         final String msg=message;
-        //System.out.println("EHHHHHHHHHHH");
         reference=FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //System.out.println("dembow");
                 User user = dataSnapshot.getValue(User.class);
                 if(notify) {
-                    //System.out.println("dembow2");
                     enviarNotificacion(receiver, user.getUsername(), msg);
                 }
                 notify=false;

@@ -13,25 +13,25 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_below="@id/toolbar"
-        android:padding="16px">
+        android:padding="16dp">
 
         <TextView
+            android:id="@+id/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear una cuenta nueva"
+            android:layout_marginBottom="10dp"
+            android:text="@string/create_account"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:layout_marginTop="10dp"
-        app:met_floatingLabel="normal"
-        android:hint="Nombre de usuario"
-        >
-    </com.rengwuxian.materialedittext.MaterialEditText>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/username_register"
+            app:met_floatingLabel="normal"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Email"
+            android:hint="@string/input_email"
             >
         </com.rengwuxian.materialedittext.MaterialEditText>
 
@@ -51,14 +51,14 @@
             android:inputType="textPassword"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Contraseña"
+            android:hint="@string/simple_pass"
             >
         </com.rengwuxian.materialedittext.MaterialEditText>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="register"
+            android:text="@string/simple_register"
             android:id="@+id/btn_register"
             android:background="@color/colorPrimaryDark"
             android:layout_marginTop="10dp"

@@ -16,13 +16,14 @@
         android:layout_below="@id/toolbar"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="16px">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
-            android:text="Login"
+            android:text="@string/simple_login"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -32,18 +33,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Email"
+            android:hint="@string/simple_email"
             android:inputType="textEmailAddress"
-            app:met_floatingLabel="normal"></com.rengwuxian.materialedittext.MaterialEditText>
+            app:met_floatingLabel="normal"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Contraseña"
+            android:hint="@string/simple_pass"
             android:inputType="textPassword"
-            app:met_floatingLabel="normal"></com.rengwuxian.materialedittext.MaterialEditText>
+            app:met_floatingLabel="normal"/>
 
         <Button
             android:id="@+id/btn_login"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryDark"
-            android:text="Entrar"
+            android:text="@string/simple_login_btn"
             android:textColor="#fff" />
 
         <TextView
@@ -61,7 +62,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="He olvidado mi contraseña"
+            android:text="@string/forgotten_pass"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
     </LinearLayout>

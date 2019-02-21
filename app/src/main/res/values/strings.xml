@@ -1,6 +1,48 @@
 <resources>
-    <string name="app_name">TorpedoDrop</string>
+    <string name="app_name">DROP THE TORPEDO</string>
+    <string name="subtitle">Lets go and drop a torpedo</string>
+    <string name="drop_it">Suelta el torpedo</string>
+    <string name="click_it">Haga click para empezar</string>
+    <string name="profile">Perfil</string>
+    <string name="input_email">Introduzca su correo electronico</string>
+    <string name="restart_email">Recuperar contraseña</string>
+    <string name="hint_restart_email">Recibirá un correo con la información necesaria para reiniciar su contraseña</string>
+    <string name="desc_profile">Haga click en su avatar para elegir una foto de su galeria, esta foto será usada como avatar y podra ser vista por todos los usuarios de la app</string>
+    <string name="forgotten_pass">He olvidado mi contraseña</string>
+    <string name="create_account">Crear una cuenta nueva</string>
+    <string name="username_register">Nombre de usuario</string>
+    <string name="search_txt">Buscar …</string>
+    <string name="aut_failed">Autentificación fallida</string>
+    <string name="google_aut_failed">Autentificación con google fallida</string>
+    <string name="empty_msg">No puedes enviar un mensaje vacio</string>
+    <string name="all_required">Todos los campos son obligatorios</string>
+    <string name="check_email_pass">Comprueba su email, la contraseña fue enviada</string>
+    <string name="pass_six">La contraseña debe tener minimo 6 caracteres</string>
+    <string name="avalaible_lang">Lenguajes disponibles</string>
+    <string name="detect_position">Detectar mi posicion actual</string>
+    <string name="seen">Visto</string>
+    <string name="sent">Enviado</string>
+    <string name="nomsg">No hay mensajes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="simple_email">Correo electronico</string>
+    <string name="simple_pass">Contraseña</string>
+    <string name="simple_login">Login</string>
+    <string name="simple_login_google">Acceder con google</string>
+    <string name="simple_login_btn">Acceder</string>
+    <string name="simple_register">Registrarse</string>
+    <string name="simple_loading">Cargando</string>
+    <string name="torpedo_loading">Espere mientras preparamos los torpedos para su lanzamiento</string>
+    <string name="logout">Desconectarse</string>
+
+
+    <!-- RELACIONADO CON LAS ACTIVITIES CLASS -->
+    <string name="upload_img">Subiendo la imagen …</string>
+    <string name="upload_failed">La subida ha fallado! </string>
+    <string name="upload_empty">Debes seleccionar una imagen!</string>
+
+    <string name="bar_layout_chats">Chats</string>
+    <string name="bar_layout_users">Usuarios</string>
+    <string name="bar_layout_profiles">Perfil</string>
+
+
 </resources>

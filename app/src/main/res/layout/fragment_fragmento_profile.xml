@@ -16,12 +16,12 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/perfil_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Perfil"
+                android:text="@string/profile"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Usuario"
+                android:text="@string/username_register"
                 android:layout_below="@id/profile_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
@@ -43,6 +43,19 @@
                 android:id="@+id/username"
                 android:textSize="10sp"
                 />
+
+            <TextView
+                android:id="@+id/text_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/desc_profile"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

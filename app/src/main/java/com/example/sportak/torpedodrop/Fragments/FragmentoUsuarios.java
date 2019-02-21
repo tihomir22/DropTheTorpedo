@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.example.sportak.torpedodrop.Adaptadores.UsuarioAdapter;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
+import com.example.sportak.torpedodrop.ResourcesLocale;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +56,7 @@ public class FragmentoUsuarios extends Fragment {
         leerUsuarios();
 
         busqueda_usuarios=view.findViewById(R.id.search_users);
+        busqueda_usuarios.setHint(ResourcesLocale.getResoruces(getContext()).getString(R.string.search_txt));
         busqueda_usuarios.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -88,6 +90,9 @@ public class FragmentoUsuarios extends Fragment {
                 aUsers.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
+
+                    assert user != null;
+                    assert fuser != null;
                     if(!user.getId().equals(fuser.getUid())){
                         aUsers.add(user);
                     }
@@ -120,9 +125,9 @@ public class FragmentoUsuarios extends Fragment {
                         assert usuario != null;
                         assert firebaseusuario != null;
 
-                        //if(usuario.getId().equals(firebaseusuario.getUid())){
-                        aUsers.add(usuario);
-                        //}
+                        if(!usuario.getId().equals(firebaseusuario.getUid())){
+                            aUsers.add(usuario);
+                        }
                         System.out.println(aUsers.size());
                     }
                     usuarioadapter = new UsuarioAdapter(getContext(), aUsers, false);

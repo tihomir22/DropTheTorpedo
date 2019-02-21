@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class LoginActivity extends AppCompatActivity {
+
+
+
+
+
 
     MaterialEditText email,password;
     Button btn_login;
@@ -39,9 +50,16 @@ public class LoginActivity extends AppCompatActivity {
 
         auth=FirebaseAuth.getInstance();
         email=findViewById(R.id.email);
+        email.setHint(ResourcesLocale.getResoruces(this).getString(R.string.input_email));
+        email.setFloatingLabelText(ResourcesLocale.getResoruces(this).getString(R.string.input_email));
+
         password=findViewById(R.id.password);
+        password.setFloatingLabelText(ResourcesLocale.getResoruces(this).getString(R.string.simple_pass));
+        password.setHint(ResourcesLocale.getResoruces(this).getString(R.string.simple_pass));
         btn_login=findViewById(R.id.btn_login);
+        btn_login.setText(ResourcesLocale.getResoruces(this).getString(R.string.simple_login));
         contrasenya_olvidada=findViewById(R.id.forgot_password);
+        contrasenya_olvidada.setText(ResourcesLocale.getResoruces(this).getString(R.string.forgotten_pass));
 
         contrasenya_olvidada.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 String txt_contraseña=password.getText().toString();
 
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_contraseña)){
-                    Toast.makeText(LoginActivity.this,"Todos los campos son requeridos",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,getString(R.string.all_required),Toast.LENGTH_SHORT).show();
                 }else{
                     auth.signInWithEmailAndPassword(txt_email,txt_contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -69,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }else{
-                                Toast.makeText(LoginActivity.this,"Autentificacion fallida",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,getString(R.string.aut_failed),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -77,4 +95,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
 }

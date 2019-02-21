@@ -2,8 +2,12 @@ package com.example.sportak.torpedodrop.Adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sportak.torpedodrop.LocaleHelper.LocaleHelper;
 import com.example.sportak.torpedodrop.MensajeriaActivity;
 import com.example.sportak.torpedodrop.Model.Chat;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
+import com.example.sportak.torpedodrop.ResourcesLocale;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -56,6 +62,8 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
     public void onBindViewHolder(@NonNull MensajeAdaptador.ViewHolder viewHolder, int i) {
         Chat chat=mChat.get(i);
         viewHolder.show_message.setText(chat.getMessage());
+
+
         if(imageurl.equals("default")){
             viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
         }else{
@@ -64,9 +72,9 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
 
         if(i==mChat.size()-1){ // comprobar el ultimo mensaje
             if(chat.isVisto()){
-                viewHolder.txt_visto.setText("Visto");
+                viewHolder.txt_visto.setText(ResourcesLocale.getResoruces(mcontext).getString(R.string.seen));
             }else{
-                viewHolder.txt_visto.setText("Enviado");
+                viewHolder.txt_visto.setText(ResourcesLocale.getResoruces(mcontext).getString(R.string.sent));
             }
         }else{
             viewHolder.txt_visto.setVisibility(View.GONE);
@@ -103,6 +111,7 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
             return MSG_TYPE_LEFT;
         }
     }
+
 }
 
 

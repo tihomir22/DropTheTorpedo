@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     MaterialEditText username,email,password;
     Button btn_registro;
+    TextView titulo;
     FirebaseAuth auth;
     DatabaseReference reference;
 
@@ -42,10 +44,23 @@ public class RegisterActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        titulo=findViewById(R.id.titulo);
+        titulo.setText(ResourcesLocale.getResoruces(this).getString(R.string.create_account));
+
         username=findViewById(R.id.username);
+        username.setHint(ResourcesLocale.getResoruces(this).getString(R.string.username_register));
+        username.setFloatingLabelText(ResourcesLocale.getResoruces(this).getString(R.string.username_register));
+
         email=findViewById(R.id.email);
+        email.setHint(ResourcesLocale.getResoruces(this).getString(R.string.input_email));
+        email.setFloatingLabelText(ResourcesLocale.getResoruces(this).getString(R.string.input_email));
+
         password=findViewById(R.id.password);
+        password.setHint(ResourcesLocale.getResoruces(this).getString(R.string.simple_pass));
+        password.setFloatingLabelText(ResourcesLocale.getResoruces(this).getString(R.string.simple_pass));
+
         btn_registro=findViewById(R.id.btn_register);
+        btn_registro.setText(ResourcesLocale.getResoruces(this).getString(R.string.simple_register));
 
         auth=FirebaseAuth.getInstance();
         btn_registro.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +71,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String txt_email=email.getText().toString();
 
                 if(TextUtils.isEmpty(txt_usuario) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_contra)){
-                    Toast.makeText(RegisterActivity.this,"Todos los campos son necesarios",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,getString(R.string.all_required),Toast.LENGTH_SHORT).show();
 
                 }else if(txt_contra.length()<6){
-                    Toast.makeText(RegisterActivity.this,"Contraseña debe tener almenos 6 caracteres",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,getString(R.string.pass_six),Toast.LENGTH_SHORT).show();
                 }else{
                     register(txt_usuario,txt_email,txt_contra);
                 }
@@ -93,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }else{
-                                Toast.makeText(RegisterActivity.this,"No has podido registrarte",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this,getString(R.string.aut_failed),Toast.LENGTH_SHORT).show();
 
                             }
                         }

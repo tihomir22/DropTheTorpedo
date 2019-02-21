@@ -16,6 +16,7 @@ import com.example.sportak.torpedodrop.MensajeriaActivity;
 import com.example.sportak.torpedodrop.Model.Chat;
 import com.example.sportak.torpedodrop.Model.User;
 import com.example.sportak.torpedodrop.R;
+import com.example.sportak.torpedodrop.ResourcesLocale;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +48,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view=LayoutInflater.from(mcontext).inflate(R.layout.item_usuario,viewGroup,false);
+        view.getBackground().setAlpha(128);
         return new UsuarioAdapter.ViewHolder(view);
     }
 
@@ -128,7 +130,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Chat chat= (Chat) snapshot.getValue(Chat.class);
-                    if(chat!=null) {
+                    if(chat!=null && firebaseUser!=null) {
                         if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) {
                             elultimomensaje = chat.getMessage();
 
@@ -137,7 +139,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
                 }
                 switch (elultimomensaje){
                     case "default":
-                        ultimo_msg.setText("No hay mensajes");
+                        ultimo_msg.setText(ResourcesLocale.getResoruces(mcontext).getString(R.string.nomsg));
                         break;
                     default:
                         ultimo_msg.setText(elultimomensaje);
