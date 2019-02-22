@@ -3,7 +3,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
-
+https://www.dropbox.com/s/s96d1vw8kifjksu/app-debug.apk?dl=0
 
 
 <!-- Markdown link & img dfn's -->
