@@ -6,6 +6,7 @@ public class Chat {
     private String receiver;
     private String message;
     private boolean visto;
+    private String photoEnviada;
 
     public Chat(String sender, String receiver, String message,Boolean visto) {
         this.sender = sender;
@@ -25,6 +26,14 @@ public class Chat {
                 ", receiver='" + receiver + '\'' +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public String getPhotoEnviada() {
+        return photoEnviada;
+    }
+
+    public void setPhotoEnviada(String photoEnviada) {
+        this.photoEnviada = photoEnviada;
     }
 
     public String getSender() {

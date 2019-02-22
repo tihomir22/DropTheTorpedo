@@ -28,8 +28,12 @@
     <string name="simple_email">Email Address</string>
     <string name="simple_pass">Password</string>
     <string name="simple_login">Login</string>
+    <string name="simple_gallery">Gallery</string>
+    <string name="simple_camera">Camera</string>
+    <string name="simple_view">Show</string>
     <string name="simple_login_google">Login with google</string>
     <string name="simple_login_btn">Access</string>
+    <string name="choose_a_option">Choose a option</string>
     <string name="simple_register">Register</string>
     <string name="simple_loading">Loading</string>
     <string name="torpedo_loading">Wait until we set up the torpedos for the battle…</string>

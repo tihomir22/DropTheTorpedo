@@ -122,11 +122,11 @@ public class FragmentoUsuarios extends Fragment {
 
                         User usuario = snapshot.getValue(User.class);
 //                        System.out.println(usuario.getUsername());
-                        assert usuario != null;
-                        assert firebaseusuario != null;
 
-                        if(!usuario.getId().equals(firebaseusuario.getUid())){
-                            aUsers.add(usuario);
+                        if(firebaseusuario.getUid() !=null && usuario.getId() !=null) {
+                            if (!usuario.getId().equals(firebaseusuario.getUid())) {
+                                aUsers.add(usuario);
+                            }
                         }
                         System.out.println(aUsers.size());
                     }

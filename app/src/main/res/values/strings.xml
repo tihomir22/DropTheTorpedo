@@ -13,6 +13,7 @@
     <string name="username_register">Nombre de usuario</string>
     <string name="search_txt">Buscar …</string>
     <string name="aut_failed">Autentificación fallida</string>
+    <string name="choose_a_option">Elige una opcion</string>
     <string name="google_aut_failed">Autentificación con google fallida</string>
     <string name="empty_msg">No puedes enviar un mensaje vacio</string>
     <string name="all_required">Todos los campos son obligatorios</string>
@@ -30,6 +31,9 @@
     <string name="simple_login_google">Acceder con google</string>
     <string name="simple_login_btn">Acceder</string>
     <string name="simple_register">Registrarse</string>
+    <string name="simple_gallery">Galeria</string>
+    <string name="simple_camera">Camera</string>
+    <string name="simple_view">Ver</string>
     <string name="simple_loading">Cargando</string>
     <string name="torpedo_loading">Espere mientras preparamos los torpedos para su lanzamiento</string>
     <string name="logout">Desconectarse</string>
@@ -43,6 +47,7 @@
     <string name="bar_layout_chats">Chats</string>
     <string name="bar_layout_users">Usuarios</string>
     <string name="bar_layout_profiles">Perfil</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

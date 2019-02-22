@@ -45,6 +45,8 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
         this.imageurl=imageurl;
     }
 
+
+
     @NonNull
     @Override
     public MensajeAdaptador.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -70,6 +72,8 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
             Glide.with(mcontext).load(imageurl).into(viewHolder.profile_image);
         }
 
+
+
         if(i==mChat.size()-1){ // comprobar el ultimo mensaje
             if(chat.isVisto()){
                 viewHolder.txt_visto.setText(ResourcesLocale.getResoruces(mcontext).getString(R.string.seen));
@@ -91,6 +95,7 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
 
         public TextView show_message;
         public ImageView profile_image;
+        public ImageView imageURL;
         public TextView txt_visto;
 
         public ViewHolder(@NonNull View itemView) {
@@ -99,6 +104,7 @@ public class MensajeAdaptador extends RecyclerView.Adapter<MensajeAdaptador.View
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
             txt_visto=itemView.findViewById(R.id.visto);
+            imageURL=itemView.findViewById(R.id.imageURL);
         }
     }
 

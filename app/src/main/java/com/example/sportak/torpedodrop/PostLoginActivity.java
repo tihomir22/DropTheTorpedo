@@ -157,8 +157,8 @@ public class PostLoginActivity extends AppCompatActivity {
 
     private void iniciarCarga() {
         progress = new ProgressDialog(this);
-        progress.setTitle(getString(R.string.simple_loading));
-        progress.setMessage(getString(R.string.torpedo_loading));
+        progress.setTitle(ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.simple_loading));
+        progress.setMessage(ResourcesLocale.getResoruces(PostLoginActivity.this).getString(R.string.torpedo_loading));
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
     }

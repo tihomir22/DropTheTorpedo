@@ -13,6 +13,7 @@
     <string name="username_register">Прякор</string>
     <string name="search_txt">търсене …</string>
     <string name="aut_failed">Неуспешно удостоверяване</string>
+    <string name="choose_a_option">Изберете опция</string>
     <string name="google_aut_failed">Неуспешно удостоверяване с Google</string>
     <string name="empty_msg">Не можете да изпратите празно съобщение</string>
     <string name="all_required">Всички полета са задължителни</string>
@@ -29,6 +30,9 @@
     <string name="simple_login">логин</string>
     <string name="simple_login_google">Достъп с Google</string>
     <string name="simple_login_btn">влезте</string>
+    <string name="simple_gallery">галерия</string>
+    <string name="simple_camera">камера</string>
+    <string name="simple_view">показване</string>
     <string name="simple_register">Регистрирайте се</string>
     <string name="simple_loading">Данните се зареждат</string>
     <string name="torpedo_loading">Изчакайте, докато подготвяме торпедите за изстрелване</string>

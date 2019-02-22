@@ -102,8 +102,10 @@ public class FragmentoChats extends Fragment {
                 for(DataSnapshot snapshot:  dataSnapshot.getChildren()){
                     User user=snapshot.getValue(User.class);
                     for (Chatlist chat:chatlist){
-                        if(user.getId().equals(chat.getId())){
-                            mUsers.add(user);
+                        if(user.getId()!=null) {
+                            if (user.getId().equals(chat.getId())) {
+                                mUsers.add(user);
+                            }
                         }
                     }
                 }

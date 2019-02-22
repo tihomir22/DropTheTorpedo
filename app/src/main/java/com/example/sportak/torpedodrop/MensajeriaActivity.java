@@ -2,12 +2,15 @@ package com.example.sportak.torpedodrop;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -46,11 +49,13 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
+    private static final int IMAGE_REQUEST=1;
+    private Uri imageUri;
 
     FirebaseUser fuser;
     DatabaseReference reference;
 
-    ImageButton btn_send;
+    ImageButton btn_send,btn_cam;
     EditText text_send;
 
     MensajeAdaptador messageAdapter;
@@ -90,6 +95,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         profile_image=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
         btn_send=findViewById(R.id.btn_send);
+        btn_cam=findViewById(R.id.btn_cam);
         text_send=findViewById(R.id.text_send);
         text_send.setHint(ResourcesLocale.getResoruces(this).getString(R.string.drop_it));
 
@@ -110,6 +116,16 @@ public class MensajeriaActivity extends AppCompatActivity {
                 }
                 text_send.setText("");
 
+            }
+        });
+
+        btn_cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent,IMAGE_REQUEST);
             }
         });
 
@@ -215,7 +231,7 @@ public class MensajeriaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher_round, username+": "+message, "Nuevo mensaje",
+                    Data data = new Data(fuser.getUid(), R.drawable.bomb, username+": "+message, "Te estan bombardeando",
                             userid);
 
                     Sender sender = new Sender(data, token.getToken());
@@ -301,5 +317,18 @@ public class MensajeriaActivity extends AppCompatActivity {
         status("offline");
         currentUser(userid);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // galeria
+        if(requestCode==IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+            imageUri=data.getData();
+            Log.v("327",imageUri.toString());
+               // subirImagen();
+
+        }
+    }
+
 
 }
